@@ -9,6 +9,7 @@ from .serializers import SnippetSerializer, TagSerializer
 
 # Create your views here.
 
+
 class SnippetViewSet(viewsets.ModelViewSet):
     """Snippet view for create and retrieve snippets"""
 
@@ -31,7 +32,6 @@ class TagListViewset(viewsets.ModelViewSet):
         tags = Tag.objects.all()
         serializer = TagSerializer(tags, many=True)
         return Response(serializer.data)
-    
 
     def retrieve(self, request, pk=None):
         tag = get_object_or_404(Tag, pk=pk)
