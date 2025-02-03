@@ -13,14 +13,11 @@ from .serializers import SnippetSerializer, TagSerializer
 class SnippetViewSet(viewsets.ModelViewSet):
     """Snippet view for create and retrieve snippets"""
 
+    queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
-    permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        return Snippet.objects.filter(created_by=self.request.user)
-
-    def create(self, serializer):
-        serializer.save(created_by=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 class TagListViewset(viewsets.ModelViewSet):
